@@ -222,3 +222,14 @@ Reshma Thomas
 
  Show Your Support
 Give a ⭐️ if this project helped you!
+
+🐳 Run with Docker
+```
+bash
+cp .env.example .env          # then put your own GEMINI_API_KEY in .env
+docker build -t cc-analyzer .
+docker run --env-file .env -p 8000:8000 cc-analyzer
+```
+Open http://localhost:8000/docs. The API key is passed at runtime and is never baked into the image.
+
+Troubleshooting: if /api/analyze returns "No transactions found", open /api/stats — the last_gemini_error field shows exactly why Gemini failed (bad key, retired model, quota). To switch models, set GEMINI_MODEL in .env.
